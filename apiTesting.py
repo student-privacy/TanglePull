@@ -11,5 +11,14 @@ def pull_args():
 
 args = pull_args()
 
+# Add the token
+api = API(token=args.token)
 
+# grabbed the id for Districts by checking before hand
+# Put it into a list
+list_id = [1451562,]
+
+# Loop through posts within District
+for n, a_post in enumerate(api.posts(listIds=list_id, count=4, sortBy='overperforming', timeframe='2 HOUR')):
+    print(n, a_post, sep='\n')
 
