@@ -8,4 +8,5 @@ This is currently in development.
 ## Packages
 - PyTangle
 - Pandas
-
+- BeautifulSoup
+- Selenium
