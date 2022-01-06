@@ -27,6 +27,10 @@ with open("FacebookCredentials.txt") as file:
         EMAIL = file.readline().split('"')[1]
         PASSWORD = file.readline().split('"')[1]
 
+ #######################
+# Web Scraper Functions #
+ #######################
+
 def _extract_post_text(item):
     """
     Function that looks within a post for a particular message identifier, then pulls the post text
@@ -104,28 +108,6 @@ def _login(browser, email, password):
     browser.find_element_by_name("login").click()
     time.sleep(5)
 
-def _crowd(count):
-    """Grab Urls for all of the posts within the CrowdTangle Posts that are specified by the ID for District data and Count number
-
-    Currently we are looking at Sorting by Overperforming & 2 hours
-    """
-    # Add the token
-    api = API(token=args.token)
-
-    # grabbed the id for Districts by checking before hand
-    # Put it into a list
-    list_id = [1451562,]
-    
-    # List containing post urls
-    url_list = list()
-
-    # Loop through posts within District
-    for n, a_post in enumerate(api.posts(listIds=list_id, count=count, sortBy='overperforming', timeframe='2 HOUR')):
-        if a_post['type'] == 'photo':
-            post_url = a_post['postUrl']
-            url_list.append(post_url) 
-
-    return url_list
 
 # Pull page into beautifulsoup
 def extract(urlList, infinite_scroll=False, scrape_comment=False):
@@ -154,6 +136,35 @@ def extract(urlList, infinite_scroll=False, scrape_comment=False):
     browser.close()
 
     return bs_list
+
+ #######################
+# CrowdTangle API Funcs #
+ #######################
+
+def _crowd(count):
+    """
+    Grab Urls for all of the posts within the CrowdTangle Posts that are specified by the ID for District data and Count number
+
+    Currently we are looking at Sorting by Overperforming & 2 hours
+    """
+    # Add the token
+    api = API(token=args.token)
+
+    # grabbed the id for Districts by checking before hand
+    # Put it into a list
+    list_id = [1451562,]
+    
+    # List containing post urls
+    url_list = list()
+
+    # Loop through posts within District
+    for n, a_post in enumerate(api.posts(listIds=list_id, count=count, sortBy='overperforming', timeframe='2 HOUR')):
+        if a_post['type'] == 'photo':
+            post_url = a_post['postUrl']
+            url_list.append(post_url) 
+
+    return url_list
+
 
 new = _crowd(3)
 print(extract(new), new)
