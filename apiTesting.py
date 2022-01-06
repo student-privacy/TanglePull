@@ -28,6 +28,9 @@ with open("FacebookCredentials.txt") as file:
         PASSWORD = file.readline().split('"')[1]
 
 def _extract_post_text(item):
+    """
+    Function that looks within a post for a particular message identifier, then pulls the post text
+    """
     actualPosts = item.find_all(attrs={'data-ad-comet-preview':"message"})
     print(actualPosts)
     text = ""
@@ -44,6 +47,9 @@ def _extract_post_text(item):
     return text
 
 def _extract_altimage(item):
+    """
+    Function that looks within a post for a particular altimage identifier, then pulls the alt text for an image
+    """
     postPictures = item.find_all(id="jsc_s_8")
     image = ""
     print('Alt Image Extract:', postPictures, sep='\n')
@@ -52,6 +58,9 @@ def _extract_altimage(item):
     return alt 
 
 def _extract_image(item):
+    """
+    Function that looks within a post for a paritcular image identifier, then pulls that image src file path. 
+    """
     postPictures = item.find_all(id="jsc_s_8")
     image = ""
     print('Image Extract:', postPictures, sep='\n')
@@ -60,17 +69,16 @@ def _extract_image(item):
     return image
 
 def _extract_html(bs_data):
-
+    """
+    Pull out all of the relevant information that is needed for each post. Write the pulled information into a JSON file for later reference and downloading.
+    """
     with open('./bs.html', 'w', encoding="utf-8") as file:
         file.write(str(bs_data.prettify()))
 
     postBigDict = list()
-    postDict = dict()
-    postDict['Post'] = list()
-    postDict['Image'] = list()
-    postDict['AltImage'] = list()
 
     for item in bs_data:
+        postDict = dict()
         postDict['Post'].append(_extract_post_text(item))
         postDict['Image'].append(_extract_image(item))
         postDict['AltImage'].append(_extract_altimage(item))
@@ -87,7 +95,7 @@ def _extract_html(bs_data):
 # define login function for facebook
 def _login(browser, email, password):
     """
-    Will go to the facebook website and login to the website using the account that you have specified
+    Will go to the facebook website and login to the website using the account and password you passed into the FacebookCredentials.txt file
     """
     browser.get("http://facebook.com")
     browser.maximize_window()
@@ -97,7 +105,9 @@ def _login(browser, email, password):
     time.sleep(5)
 
 def _crowd(count):
-    """Grab Urls for all of the posts within the CrowdTangle Posts that are specified by the ID and Count number
+    """Grab Urls for all of the posts within the CrowdTangle Posts that are specified by the ID for District data and Count number
+
+    Currently we are looking at Sorting by Overperforming & 2 hours
     """
     # Add the token
     api = API(token=args.token)
@@ -144,5 +154,6 @@ def extract(urlList, infinite_scroll=False, scrape_comment=False):
     browser.close()
 
     return bs_list
+
 new = _crowd(3)
 print(extract(new), new)
