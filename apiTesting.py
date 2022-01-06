@@ -3,11 +3,7 @@ import argparse
 from pytangle.api import API
 import pandas as pd
 import re
-<<<<<<< HEAD
 # import request
-=======
-import request
->>>>>>> ff4fcf7bc956c990546d96e9b4c0a85ed5ccae08
 from datetime import datetime
 from urllib.request import urlopen
 import time
@@ -31,7 +27,6 @@ with open("FacebookCredentials.txt") as file:
         EMAIL = file.readline().split('"')[1]
         PASSWORD = file.readline().split('"')[1]
 
-<<<<<<< HEAD
 def _extract_post_text(item):
     actualPosts = item.find_all(attrs={'data-ad-comet-preview':"message"})
     print(actualPosts)
@@ -88,8 +83,6 @@ def _extract_html(bs_data):
             file.write(json.dumps(postBigDict, ensure_ascii=False).encode('utf-8').decode())
 
     return postBigDict
-=======
->>>>>>> ff4fcf7bc956c990546d96e9b4c0a85ed5ccae08
 
 # define login function for facebook
 def _login(browser, email, password):
@@ -100,7 +93,6 @@ def _login(browser, email, password):
     browser.maximize_window()
     browser.find_element_by_name("email").send_keys(email)
     browser.find_element_by_name("pass").send_keys(password)
-<<<<<<< HEAD
     browser.find_element_by_name("login").click()
     time.sleep(5)
 
@@ -127,13 +119,6 @@ def _crowd(count):
 
 # Pull page into beautifulsoup
 def extract(urlList, infinite_scroll=False, scrape_comment=False):
-=======
-    browser.find_element_by_id("loginbutton").click()
-    time.sleep(5)
-
-# Pull page into beautifulsoup
-def extract(page, infinite_scroll=False, scrape_comment=False):
->>>>>>> ff4fcf7bc956c990546d96e9b4c0a85ed5ccae08
     """
     Pull out the particular page of interest from the crowdtangle info. Then pass that pages html into beautifulsoup for parsing
     """
@@ -145,7 +130,6 @@ def extract(page, infinite_scroll=False, scrape_comment=False):
     # Chromedrive needs to be in the same folder at this file
     browser = webdriver.Chrome(executable_path="./chromedriver", options=option)
     _login(browser, EMAIL, PASSWORD)
-<<<<<<< HEAD
     bs_list = list()
     for page in urlList:
         browser.get(page)
@@ -162,27 +146,3 @@ def extract(page, infinite_scroll=False, scrape_comment=False):
     return bs_list
 new = _crowd(3)
 print(extract(new), new)
-=======
-    browser.get(page)
-    source_data = browser.page_source
-    
-    # Throw source code into BeautifulSoup and parse
-    bs_data = BeautifulSoup(source_data, 'html.parser')
-
-    browser.close()
-
-    return bs_data 
-
-# Add the token
-api = API(token=args.token)
-
-# grabbed the id for Districts by checking before hand
-# Put it into a list
-list_id = [1451562,]
-
-# Loop through posts within District
-for n, a_post in enumerate(api.posts(listIds=list_id, count=1, sortBy='overperforming', timeframe='2 HOUR')):
-    if a_post['type'] == 'photo':
-        post_url = a_post['postUrl']
-        print(extract(post_url))
->>>>>>> ff4fcf7bc956c990546d96e9b4c0a85ed5ccae08
