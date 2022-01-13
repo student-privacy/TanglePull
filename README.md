@@ -25,8 +25,8 @@ This will be a file that contains the URLs to school district's FaceBook Profile
 
 ```
 [
- "www.facebook.com/Profile1",
- "www.facebook.com/Profile2"
+	"www.facebook.com/Profile1",
+	"www.facebook.com/Profile2"
 ]
 ```
 
