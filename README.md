@@ -33,4 +33,11 @@ You can create a conda environment using the below command in your terminal:
 conda create env -f env/tanglepull.yml
 ```
 
+## How to Run
+
+All you need to do is run the python script `FaceScrape.py` within the terminal. You can do that by running the command below.
+
+```
+python FaceScrape.py
+```
 
