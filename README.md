@@ -8,7 +8,7 @@ TanglePull is a package to scrape Facebook Profiles. It will iterate through the
 
 Two files are needed to be able to use this package. Make sure to include both of these files in the same directory as this repo on your local computer. 
 
-1. Credentials.json
+1. credentials.json
 
  You must supply it with a file that passes your credentials to FaceBook so that you can access FaceBook like as if you are logged in normally. You can pass your normal account email and password to this file. 
 
@@ -28,6 +28,9 @@ This will be a file that contains the URLs to school district's FaceBook Profile
 - urllib.request
 
 You can create a conda environment using the below command in your terminal:
-```conda create env -f env/tanglepull.yml```
+
+```
+conda create env -f env/tanglepull.yml
+```
 
 
