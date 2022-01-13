@@ -13,7 +13,7 @@ Two files are needed to be able to use this package. Make sure to include both o
  You must supply it with a file that passes your credentials to FaceBook so that you can access FaceBook like as if you are logged in normally. You can pass your normal account email and password to this file. 
 
 
-2. posts_url.json
+2. posts_urls.json
 
 This will be a file that contains the URLs to school district's FaceBook Profile. This will be used to iterate through and pull all the desired posts from.
 
